@@ -64,7 +64,11 @@ func (j *Job) Run() ([]reflect.Value, error) {
 
 		defer JobLocker.Unlock(hashedKey)
 	}
+
+	j.LastRun = time.Now()
 	result, err := helper.CallJobFuncWithParams(j.Functions[j.JobFunction], j.FuncParams[j.JobFunction])
+	j.NextJobRun()
+
 	if err != nil {
 		return nil, err
 	}

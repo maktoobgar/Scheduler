@@ -90,12 +90,8 @@ func (s *Scheduler) Every(interval uint64) *job.Job {
 func (s *Scheduler) RunPending() {
 	runnableJobs, n := s.GetRunnableJobs()
 
-	if n != 0 {
-		for i := 0; i < n; i++ {
-			go runnableJobs[i].Run()
-			runnableJobs[i].LastRun = time.Now()
-			runnableJobs[i].NextJobRun()
-		}
+	for i := 0; i < n; i++ {
+		go runnableJobs[i].Run()
 	}
 }
 
