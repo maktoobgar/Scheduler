@@ -104,11 +104,21 @@ func (s *Scheduler) RunAll() {
 	s.RunAllWithDelay(0)
 }
 
+// RunAllSameTimeAfter runs all jobs at the same time after a delay
+func (s *Scheduler) RunAllSameTimeAfter(d int) {
+	if d != 0 {
+		time.Sleep(time.Duration(d))
+	}
+	for i := 0; i < s.JobSize; i++ {
+		go s.JobList[i].Run()
+	}
+}
+
 // RunAllWithDelay runs all jobs with a delay
 func (s *Scheduler) RunAllWithDelay(d int) {
 	for i := 0; i < s.JobSize; i++ {
 		go s.JobList[i].Run()
-		if 0 != d {
+		if d != 0 {
 			time.Sleep(time.Duration(d))
 		}
 	}

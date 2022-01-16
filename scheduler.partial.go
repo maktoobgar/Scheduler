@@ -22,6 +22,11 @@ func RunAll() {
 	defaultScheduler.RunAll()
 }
 
+// RunAllSameTimeAfter runs all jobs at the same time after a delay
+func RunAllSameTimeAfter(d int) {
+	defaultScheduler.RunAllSameTimeAfter(d)
+}
+
 // RunAllWithDelay runs all jobs with a delay
 func RunAllWithDelay(d int) {
 	defaultScheduler.RunAllWithDelay(d)
